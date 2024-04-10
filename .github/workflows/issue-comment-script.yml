@@ -1,4 +1,4 @@
-name: Comment on New Issues
+name: Comment on new issues using script
 
 on:
   issues:
