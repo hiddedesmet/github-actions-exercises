@@ -1,0 +1,23 @@
+name: Comment on issues with a bug!
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    if: github.event.label.name == 'bug'
+    steps:
+      - name: Comment on the Issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issueComment = "Thanks for labeling this issue as a bug. We'll look into it as soon as possible.";
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: issueComment
+            });
+          github-token: ${{secrets.GITHUB_TOKEN}}
