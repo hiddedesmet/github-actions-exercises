@@ -1,0 +1,22 @@
+name: Comment on New Issues
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment on the Issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issueComment = "Thank you for opening an issue! We will look into it as soon as possible. This is created by using github script@v6 :-)";
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: issueComment
+            });
+          github-token: ${{secrets.GITHUB_TOKEN}}
